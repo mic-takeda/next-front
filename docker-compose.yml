@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  front:
+    build:
+      context: .
+      args:
+        WORKDIR: ${WORKDIR}
+    container_name: share-favplace-front
+    command: npm run dev
+    volumes:
+      - .:/${WORKDIR}
+    ports:
+      - "${FRONT_PORT}:${FRONT_PORT}"
