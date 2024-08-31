@@ -1,4 +1,7 @@
-FROM node:20-alpine AS builder
+#
+# Build stage
+#
+FROM node:21-bullseye-slim AS builder
 
 ARG WORKDIR
 
@@ -8,3 +11,16 @@ ENV HOME=/${WORKDIR} \
     HOST=0.0.0.0
 
 WORKDIR ${HOME}
+
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+#
+# Production stage
+#
+FROM nginx
+ARG WORKDIR
+ENV HOME=/${WORKDIR}
+COPY --from=builder ${HOME}/build /usr/share/nginx/html
