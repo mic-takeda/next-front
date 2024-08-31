@@ -3,9 +3,13 @@ services:
   front:
     build:
       context: .
+      dockerfile: Dockerfile
+      target: builder
       args:
         WORKDIR: ${WORKDIR}
     container_name: share-favplace-front
+    env_file:
+      - ./environment/react-app-variables.env
     command: npm run dev
     volumes:
       - .:/${WORKDIR}
