@@ -25,4 +25,4 @@ ARG WORKDIR
 ENV HOME=/${WORKDIR}
 COPY --from=builder ${HOME}/.next /usr/share/nginx/html
 COPY --from=builder ${HOME}/public /usr/share/nginx/html/public
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+#COPY nginx.conf /etc/nginx/conf.d/default.conf
